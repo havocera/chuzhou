@@ -16,7 +16,7 @@ import 'vant/lib/index.css';
 
 Vue.use(Vant);
 import axios from "axios"
-axios.defaults.baseURL = 'http://czapi.wtycms.cn/'
+axios.defaults.baseURL = 'https://czapi.wtycms.cn/'
 Vue.prototype.$http = axios;
 // 添加axios请求拦截器
 axios.interceptors.request.use(config=>{

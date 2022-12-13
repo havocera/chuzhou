@@ -71,10 +71,10 @@ function  loader(number) {
             window.parent.postMessage({ data:"toProcessInfo" },'*');
             break;
         case 3:
-            window.parent.postMessage({ data:"toTransportInfo" },'*');
+            window.parent.postMessage({ data:"toFwsyInfo" },'*');
             break;
         case 4:
-            window.parent.postMessage({ data:"toFwsyInfo" },'*');
+            window.parent.postMessage({ data:"toTransportInfo" },'*');
             break;
         case 5:
             window.parent.postMessage({ data:"tocunzheng" },'*');

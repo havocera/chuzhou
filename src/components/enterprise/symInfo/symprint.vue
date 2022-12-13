@@ -127,7 +127,7 @@ export default {
         filter: "color"
         },
         total:0,
-        baseUrl:'http://ahtea.wtycms.cn'
+        baseUrl:'http://spsy.jiaotu.cc'
       }
     },
     created(){

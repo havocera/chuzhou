@@ -591,8 +591,8 @@ var router = new VueRouter({
 router.beforeEach((to, from, next) => {
   // let isLogin = !!localStorage.eleToken
   const now_path = to.path.split('/')
-  
-  if (to.path === '/login'||to.path === '/BankLogin' ||to.path ==='/register' || now_path[1] === 'sym'||to.path === '/index'||to.path === '/symQuery'||to.path =='/govLogin'||to.path =='/transportLogin'||to.path =='/lssLogin'||to.path =='/sgsLogin') return next()
+  console.log(to)
+  if (to.path === '/login'||to.path === '/BankLogin' ||to.path ==='/register'||to.name ==='sym' || now_path[1] === 'sym'||to.path === '/index'||to.path === '/symQuery'||to.path =='/govLogin'||to.path =='/transportLogin'||to.path =='/lssLogin'||to.path =='/sgsLogin'||to.path =='/datav') return next()
   // if () return next()
   const tokenStr = window.sessionStorage.getItem('token')
   if (!tokenStr) return next('/login')
