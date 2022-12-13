@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d221e04"],{cbe4:function(e,n,t){"use strict";t.r(n);var a=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",[e._v("行政区统计组件")])},c=[],u={},r=u,s=t("2877"),i=Object(s["a"])(r,a,c,!1,null,"aba1ba5e",null);n["default"]=i.exports}}]);
+//# sourceMappingURL=chunk-2d221e04.e0239138.js.map
