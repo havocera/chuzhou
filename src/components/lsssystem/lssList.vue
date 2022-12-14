@@ -35,60 +35,46 @@
       :data="tableData"
       style="width: 100%">
       <el-table-column
-        type="index"
+        prop="retail_order"
         label="零售订单号"
       >
       </el-table-column>
       <el-table-column
         prop="qymc"
-        label="零售商"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
         label="生产企业">
       </el-table-column>
       <el-table-column
-        prop="money"
+        prop="cpmc"
         label="零售产品">
       </el-table-column>
       <el-table-column
-        prop="product"
+        prop="pch"
+        label="批次号">
+      </el-table-column>
+      <el-table-column
+        prop="number_transaction"
         label="交易数量">
       </el-table-column>
       <el-table-column
-        prop="number"
+        prop="amount_transaction"
         label="交易金额">
       </el-table-column>
   
       <el-table-column
-        prop="number"
+        prop="name_purchaser"
         label="购买方">
       </el-table-column>
-
       <el-table-column
-        prop="number"
+        prop="phone_purchaser"
         label="买家联系方式">
       </el-table-column>
-
       <el-table-column
-        prop="number"
-        label="时间">
-      </el-table-column>
-      <el-table-column
-        prop="time"
-        label="交易时间">
+        prop="creation_time"
+        label="创建时间">
       </el-table-column>
         <el-table-column label="操作" width="270px">
           <!-- 插槽自定义样式 -->
           <template slot-scope="scope">
-            <el-tooltip effect="dark" content="编辑" placement="top-start">
-              <el-button
-                @click="editInfo(scope.row.id)"
-                type="primary"
-                icon="el-icon-edit"
-              ></el-button>
-            </el-tooltip>
             <el-tooltip effect="dark" content="删除" placement="top-end">
               <el-button
                 type="warning"
@@ -117,26 +103,26 @@
         <!-- 表单区 -->
         <el-form size="medium"  ref="addFormRef" :inline="true" :model="addFormInfo" label-width="120px">
           <el-form-item label="生产企业名称"  prop="chandi">
-            <el-select v-model="addFormInfo.chandi" placeholder="请选择生产企业">
-              <el-option :label="item.qymc" v-for="item in selectCompany" :key="item.qydm" :value="item.qymc"></el-option>
+            <el-select v-model="addFormInfo.scsqydm" @change="getCppc" placeholder="请选择生产企业">
+              <el-option :label="item.qymc" v-for="item in selectCompany" :key="item.qydm" :value="item.qydm"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="产品名称"  prop="cpbh">
-            <el-select v-model="addFormInfo.cpbh" placeholder="请选择产品">
-              <el-option :label="item.cpmc" v-for="item in selectProduct" :key="item.bh" :value="item.bh"></el-option>
+            <el-select v-model="addFormInfo.pch" placeholder="请选择产品">
+              <el-option :label="item.cpmc" v-for="item in selectPch" :key="item.pch" :value="item.pch"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="购买数量"  prop="name">
-            <el-input v-model="addFormInfo.name"></el-input>
+          <el-form-item label="购买数量"  prop="number">
+            <el-input v-model="addFormInfo.number_transaction"></el-input>
           </el-form-item>
           <el-form-item label="交易金额"  prop="money">
-            <el-input v-model="addFormInfo.money"></el-input>
+            <el-input v-model="addFormInfo.amount_transaction"></el-input>
           </el-form-item>
           <el-form-item label="购买方"  prop="product">
-            <el-input v-model="addFormInfo.product"></el-input>
+            <el-input v-model="addFormInfo.name_purchaser"></el-input>
           </el-form-item>
           <el-form-item label="买家联系方式"  prop="number">
-            <el-input v-model="addFormInfo.number"></el-input>
+            <el-input v-model="addFormInfo.phone_purchaser"></el-input>
           </el-form-item>
  
           <el-form-item label="交易日期"  prop="time">
@@ -210,7 +196,6 @@
               v-model="editFormInfo.time"
               type="date"
               placeholder="选择日期"
-              
             >
             </el-date-picker>
           </el-form-item>
@@ -242,7 +227,6 @@ export default {
         editDialogVisible:false,
         printCargoDialogVisible:false,
         addFormInfo:{
-       
         },
          uploadURL:'',
          carGoUploadURL:'',
@@ -259,6 +243,8 @@ export default {
         // 开始
         selectCompany:[],
         selectPch:[],
+        qydm:'',
+        editQymc:''
       }
     },
     created(){
@@ -268,26 +254,36 @@ export default {
     },
     methods:{
       async getDataList(){
-        this.queryInfo.token =this.tokenStr
-      const{data:res} = await this.$http.post('TransactionList',this.queryInfo)
-      console.log(res.data.result)
-      this.tableData = res.data.result
-      this.total = res.data.total
+        // this.queryInfo.token =this.tokenStr
+      const{data:res} = await this.$http.post('RetailList',this.queryInfo)
+      console.log(res.data)
+      this.tableData = res.data
+      this.total = res.length
       },
       // 触发新增窗口下拉框
      async getCompany(){
         const {data:res} = await this.$http.post('selectcompany',this.queryInfo)
-        console.log(res)
         this.selectCompany = res.data;
+          console.log(res.data)
       },
+      // 拿到qydm后，再请求后台数据获取批次号
+   async getCppc(val){
+              //  console.log(val);
+       const {data:res} = await this.$http.post('selectbypch',{qydm:val})
+      console.log(res);
+      this.selectPch = res.data;
+
+    },
       // 点击翻页重新发起数据请求
     handleCurrentChange(newPage){
         this.queryInfo.page = newPage;
         this.getDataList();
     },
    async addFormSubmit(){
-        this.addFormInfo.token = this.tokenStr;
-        await this.$http.post('AddTransactionInfo',this.addFormInfo)
+        // this.addFormInfo.token = this.tokenStr;
+        // console.log(this.addFormInfo)
+       const res =  await this.$http.post('AddRetail',this.addFormInfo);
+       console.log(res)
         this.getDataList();
         this.addDialogVisible =false;
         this.$refs.addFormRef.resetFields();
@@ -334,7 +330,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.post('DelTransactionInfo',{
+          this.$http.post('DelRetailInfo',{
             token:this.tokenStr,id:id
           })
           this.$message({

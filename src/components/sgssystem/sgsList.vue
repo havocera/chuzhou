@@ -3,7 +3,7 @@
      <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>收购商商管理</el-breadcrumb-item>
+      <el-breadcrumb-item>收购商管理</el-breadcrumb-item>
       <el-breadcrumb-item>收购商交易管理</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card">
@@ -35,60 +35,37 @@
       :data="tableData"
       style="width: 100%">
       <el-table-column
-        type="index"
-        label="零售订单号"
+        prop="retail_order"
+        label="收购订单号"
       >
       </el-table-column>
       <el-table-column
         prop="qymc"
-        label="零售商"
-        width="180">
-      </el-table-column>
-      <el-table-column
-        prop="name"
         label="生产企业">
       </el-table-column>
       <el-table-column
-        prop="money"
-        label="零售产品">
+        prop="cpmc"
+        label="收购产品">
       </el-table-column>
       <el-table-column
-        prop="product"
+        prop="pch"
+        label="批次号">
+      </el-table-column>
+      <el-table-column
+        prop="number_transaction"
         label="交易数量">
       </el-table-column>
       <el-table-column
-        prop="number"
+        prop="amount_transaction"
         label="交易金额">
       </el-table-column>
-  
       <el-table-column
-        prop="number"
-        label="购买方">
-      </el-table-column>
-
-      <el-table-column
-        prop="number"
-        label="买家联系方式">
-      </el-table-column>
-
-      <el-table-column
-        prop="number"
-        label="时间">
-      </el-table-column>
-      <el-table-column
-        prop="time"
-        label="交易时间">
+        prop="creation_time"
+        label="创建时间">
       </el-table-column>
         <el-table-column label="操作" width="270px">
           <!-- 插槽自定义样式 -->
           <template slot-scope="scope">
-            <el-tooltip effect="dark" content="编辑" placement="top-start">
-              <el-button
-                @click="editInfo(scope.row.id)"
-                type="primary"
-                icon="el-icon-edit"
-              ></el-button>
-            </el-tooltip>
             <el-tooltip effect="dark" content="删除" placement="top-end">
               <el-button
                 type="warning"
@@ -110,33 +87,27 @@
       </el-pagination>
        <!-- 新增物流信息dialog -->
       <el-dialog
-        title="新增零售数据"
+        title="新增收购数据"
         :visible.sync="addDialogVisible"
         width="30%"
       >
         <!-- 表单区 -->
         <el-form size="medium"  ref="addFormRef" :inline="true" :model="addFormInfo" label-width="120px">
-          <el-form-item label="生产企业名称"  prop="chandi">
-            <el-select v-model="addFormInfo.chandi" placeholder="请选择生产企业">
-              <el-option :label="item.chandi" v-for="item in selectchandi" :key="item.cdbh" :value="item.chandi"></el-option>
+          <el-form-item label="收购企业名称"  prop="chandi">
+            <el-select v-model="addFormInfo.scsqydm" @change="getCppc" placeholder="请选择收购企业">
+              <el-option :label="item.qymc" v-for="item in selectCompany" :key="item.qydm" :value="item.qydm"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="产品名称"  prop="cpbh">
-            <el-select v-model="addFormInfo.cpbh" placeholder="请选择产品">
-              <el-option :label="item.cpmc" v-for="item in selectProduct" :key="item.bh" :value="item.bh"></el-option>
+            <el-select  v-model="addFormInfo.pch" placeholder="请选择产品">
+              <el-option :label="item.cpmc" v-for="item in selectPch" :key="item.pch" :value="item.pch"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="购买数量"  prop="name">
-            <el-input v-model="addFormInfo.name"></el-input>
+          <el-form-item label="购买数量"  prop="number">
+            <el-input v-model="addFormInfo.number_transaction"></el-input>
           </el-form-item>
           <el-form-item label="交易金额"  prop="money">
-            <el-input v-model="addFormInfo.money"></el-input>
-          </el-form-item>
-          <el-form-item label="购买方"  prop="product">
-            <el-input v-model="addFormInfo.product"></el-input>
-          </el-form-item>
-          <el-form-item label="买家联系方式"  prop="number">
-            <el-input v-model="addFormInfo.number"></el-input>
+            <el-input v-model="addFormInfo.amount_transaction"></el-input>
           </el-form-item>
  
           <el-form-item label="交易日期"  prop="time">
@@ -165,7 +136,7 @@
       >
        <!-- 表单区 -->
         <el-form size="medium"  ref="editFormRef" :inline="true" :model="editFormInfo" label-width="120px">
-          <el-form-item label="零售商名称"  prop="name">
+          <el-form-item label="收购商名称"  prop="name">
             <el-input v-model="editFormInfo.name"></el-input>
           </el-form-item>
           <el-form-item label="生产企业名称"  prop="money">
@@ -210,7 +181,6 @@
               v-model="editFormInfo.time"
               type="date"
               placeholder="选择日期"
-              
             >
             </el-date-picker>
           </el-form-item>
@@ -242,12 +212,6 @@ export default {
         editDialogVisible:false,
         printCargoDialogVisible:false,
         addFormInfo:{
-         name:'',
-         money:'',
-         product:'',
-         number:'',
-         time:'',
-         picture:''
         },
          uploadURL:'',
          carGoUploadURL:'',
@@ -260,31 +224,51 @@ export default {
          picture:''
         },
         cpInfoList:[],
-        cpmcList:[]
+        cpmcList:[],
+        // 开始
+        selectCompany:[],
+        selectPch:[],
+        qydm:'',
+        editQymc:''
       }
     },
     created(){
         this.tokenStr = window.sessionStorage.getItem('token');
         this.getDataList();
-        this.getPrintData();
-        this.setUploadURL();
+        this.getCompany();
     },
     methods:{
       async getDataList(){
-        this.queryInfo.token =this.tokenStr
-      const{data:res} = await this.$http.post('TransactionList',this.queryInfo)
-      console.log(res.data.result)
-      this.tableData = res.data.result
-      this.total = res.data.total
+        // this.queryInfo.token =this.tokenStr
+      const{data:res} = await this.$http.post('PurchaseList',this.queryInfo)
+      console.log(res.data)
+      this.tableData = res.data
+      this.total = res.length
       },
+      // 触发新增窗口下拉框
+     async getCompany(){
+        const {data:res} = await this.$http.post('selectcompany',this.queryInfo)
+        this.selectCompany = res.data;
+          console.log(res.data)
+      },
+      // 拿到qydm后，再请求后台数据获取批次号
+   async getCppc(val){
+              //  console.log(val);
+       const {data:res} = await this.$http.post('selectbypch',{qydm:val})
+      console.log(res);
+      this.selectPch = res.data;
+
+    },
       // 点击翻页重新发起数据请求
     handleCurrentChange(newPage){
         this.queryInfo.page = newPage;
         this.getDataList();
     },
    async addFormSubmit(){
-        this.addFormInfo.token = this.tokenStr;
-        await this.$http.post('AddTransactionInfo',this.addFormInfo)
+        // this.addFormInfo.token = this.tokenStr;
+        // console.log(this.addFormInfo)
+       const res =  await this.$http.post('AddPurchase',this.addFormInfo);
+       console.log(res)
         this.getDataList();
         this.addDialogVisible =false;
         this.$refs.addFormRef.resetFields();
@@ -299,12 +283,6 @@ export default {
         this.addFormInfo.cargo_pic = file.name;
         this.editFormInfo.cargo_pic = file.name;
         console.log(response,file.name)
-    },
-       // 动态设置图片上传路径
-    setUploadURL(){
-        this.tokenStr = window.sessionStorage.getItem('token');
-        this.uploadURL = 'http://ahteaapi.wtycms.cn/Transactionupload?token=' + this.tokenStr;
-        // console.log(this.uploadURL)
     },
    async editInfo(id){
         // console.log(id)
@@ -331,7 +309,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.$http.post('DelTransactionInfo',{
+          this.$http.post('DelPurchaseInfo',{
             token:this.tokenStr,id:id
           })
           this.$message({
