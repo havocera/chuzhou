@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="static/css/adapter.css">
+    <link rel="stylesheet" href="static/css/mlindex.css">
+    <link rel="stylesheet" href="static/css/reset.css">
+    <script src="static/js/jquery-1.9.1.min.js"></script>
+    <style> 
+    .logout{
+        text-align: center;
+        width: 6vw;
+        margin-right: 10%;
+        display: inline-block; 
+        float: right;
+        margin-top: 3%;
+        border: 1px solid #5bd5ff;/*#   5bd5ff*/
+        border-radius: .5vw; 
+        /* background-color: #1890ff; */
+        z-index: 90000;
+    }
+    
+    
+    </style>
+</head>
+<!--style="background-color: #105ab6"-->
+<body >
+    
+    <div class="logout" style="" onclick="todaohang()">
+        <a href="javascript:void(0);"  style="font-size: 1.4vw;color: #5bd5ff" >退出系统</a>
+       </div>
+<div class="wrapper" style="z-index: -1;">
+   <div class="top" >
+     <!--  <img src="static/picture/qslogo.png" alt="">-->
+       <p style="font-size: 3.6vw">物联网+区块链食品安全追溯系统</p>
+       
+       
+   </div>
+   <!--banner start    -->
+   <div id="banner" class="banner" >
+    <ul id="banner_img" class="banner_img">
+        <!-- <li class="clearfix"  style="display: block">
+            <div class="add_img">
+             
+                <img src="static/picture/quality_traceability.png" alt=""/>
+
+            </div>
+            <div class="ad_txt">
+                <h2>系统管理</h2>
+                <p>
+                    包含企业的仓储管理，出入库明细管理。方便企业对销售库存进行管理，分析。
+                    
+                </p>
+               
+            </div>
+        </li> -->
+        <li class="clearfix" style="display: block">
+            <div class="add_img">
+                <img src="static/picture/agricultural_data.png" alt=""/>
+            </div>
+            <div class="ad_txt">
+                <h2>基础信息</h2>
+                <p>
+                    基础信息管理包含：企业注册信息维护，用户登录信息维护，企业产地维护，企业产品维护。
+                </p>
+                <!-- <a href="#" target="_blank" class="click-open">点击进入</a> -->
+            </div>
+        </li>
+       <li class="clearfix">
+            <div class="add_img">
+                <img src="static/picture/nyscpc.png" alt=""/>
+            </div>
+            <div class="ad_txt">
+                <h2>生产采集管理</h2>
+                <p>
+                    生产采集管理：对种植的投入品使用的填报，对种植过程的农事操作进行上报，物联网信息自动采集。实现种植过程全程可追溯。保障溯源数据可用、可信和可视。
+                </p>
+                <!-- <a href="#" target="_blank" class="click-open">点击进入</a> -->
+            </div>
+        </li>
+       <li class="clearfix">
+            <div class="add_img">
+                <img src="static/picture/agricultural_data.png" alt=""/>
+            </div>
+            <div class="ad_txt">
+                <h2>加工过程管理</h2>
+                <p>
+                    加工过程管理中对产品加工的各个过程进行详细的记录，保证加工过程追溯到人。为产品的追溯过程提供数据支持。
+                </p>
+                <!-- <a href="#" target="_blank" class="click-open">点击进入</a> -->
+            </div>
+        </li>
+       
+      <li class="clearfix">
+            <div class="add_img">
+                <img src="static/picture/business.png" alt="互联网时代的整合营销"/>
+            </div>
+            <div class="ad_txt">
+                <h2>产品溯源码</h2>
+                <p>
+                    产品溯源码：包括生成追溯码，向消费者展示产品信息。同时可查询产品追溯信息，销售去向分析。
+                </p>
+                
+            </div>
+        </li>
+        <li class="clearfix">
+            <div class="add_img">
+                <img src="static/picture/agricultural_data.png" alt=""/>
+            </div>
+            <div class="ad_txt">
+                <h2>交易信息备案</h2>
+                <p>
+                    交易信息备案包括：产品的交易记录、物流信息管理、客户信息管理。方便企业存储记录客户信息与物流信息。
+                </p>
+                <!-- <a href="./QRcode.html" target="_blank" class="click-open">点击进入</a> -->
+            </div>
+        </li>
+      
+       
+    </ul>
+</div>
+   <!--banner end-->
+   <!--banner_ctr start    -->
+   <div id="banner_ctr" class="banner_ctr">
+    <!--<div id="drag_ctr"></div>-->
+    <ul>
+    
+        <!-- <li>
+            <div>
+                <img class="nav-img" src="static/picture/union_icon.png" alt="nav-img"/>
+                <em>系统管理</em>
+            </div>
+            <img  class="nav-spacer" src="static/picture/nav_spacer.png" alt=""/>
+        </li> -->
+     <li>
+            <div >
+                <img class="nav-img" src="static/picture/intelligence_icon.png" alt="nav-img"/>
+                <em>基础信息管理</em>
+            </div>
+            <img  class="nav-spacer" src="static/picture/nav_spacer.png" alt=""/>
+        </li>
+        <li>
+            <div><img class="nav-img" src="static/picture/nysc_icon.png" alt="nav-img"/>
+                <em> 生产采集</em>
+            </div>
+            <img  class="nav-spacer" src="static/picture/nav_spacer.png" alt=""/>
+        </li>
+        <li>
+            <div>
+                <img class="nav-img" src="static/picture/relaxation_icon.png" alt="nav-img"/>
+                <em>加工过程管理</em>
+            </div>
+            <img  class="nav-spacer" src="static/picture/nav_spacer.png" alt=""/>
+        </li>
+     <!-- <li>
+            <div>
+                <img class="nav-img" src="static/picture/nysc_icon.png" alt="nav-img"/>
+                <em class="special-em">种植过程管理</em>
+            </div>
+            <img  class="nav-spacer" src="static/picture/nav_spacer.png" alt=""/>
+        </li> -->
+      
+  
+     
+        <li>
+            <div  >
+                <img class="nav-img" src="static/picture/quality_traceability_icon.png" alt="nav-img"/>
+                <em>产品溯源码</em>
+            </div>
+            <img  class="nav-spacer" src="static/picture/nav_spacer.png" alt="1234"/>
+        </li>
+        <li>
+            <div>
+                <img class="nav-img" src="static/picture/business_icon.png" alt="nav-img"/>
+                <em >交易信息备案</em>
+            </div>
+            <img  class="nav-spacer" src="static/picture/nav_spacer.png" alt=""/>
+        </li>
+        <!-- <li>
+            <div>
+                <img class="nav-img" src="static/picture/agricultural_data_icon.png" alt="nav-img"/>
+                <em>存证系统</em>
+            </div>
+        </li> -->
+    </ul>
+</div>
+   <!--banner_ctr end-->
+   <!--footer start    -->
+<!--<div class="footer">
+    <div class="footer-support">
+        <p>主办单位：农业局 </p>
+        <p>技术支持：旗硕科技 </p>
+    </div>
+</div>-->
+   </div>
+   <!--footer end-->
+ <script src="static/js/animate.js"></script>
+ <script>
+function todaohang(){
+    
+    window.parent.postMessage({ data:"toLogin" },'*');
+
+}
+
+
+ </script>
+</body>
+</html>
