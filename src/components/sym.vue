@@ -173,6 +173,7 @@ import "../assets/js/china.js"
             return{
                 sym:'',
                 showInfo:{
+                  qymc:''
                 },
                  activeNames: ['1'],
                  youjiImg:'',
@@ -207,7 +208,8 @@ import "../assets/js/china.js"
                 // console.log(res)
                 console.log(res.code)
                 if (res.code === -1){
-                        this.$router.push('/symReset')
+                  console.log("suyaunma")
+                        // this.$router.push('/symReset')
                 }else if(res.code === 0){
                     this.showInfo = res.data;
                     

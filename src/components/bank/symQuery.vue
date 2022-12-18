@@ -37,7 +37,7 @@
       }
     },
     created(){
-          this.getDataList();
+          // this.getDataList();
     },
     methods:{
           async getDataList(){
@@ -48,12 +48,15 @@
       this.total = res.data.length;
       },
       queryQy(){
+        this.$router.push({
+          path:`/sym/${this.query}`
+        })
           // this.getDataList()
-           this.$notify({
-          title: '警告',
-          message: '溯源码信息尚未接入！',
-          type: 'warning'
-        });
+        //    this.$notify({
+        //   title: '警告',
+        //   message: '溯源码信息尚未接入！',
+        //   type: 'warning'
+        // });
       },
       opendetail(qydm){
             console.log(qydm)
@@ -118,5 +121,12 @@
     border-radius: 8px;
     cursor: pointer;
 }
-
+.footer{
+    background-image: url("../../assets/images/footer.png");
+    background-size: cover;
+    min-height: 80px!important;
+    color: seashell;
+    padding-top: 30px;
+    text-align: center;
+}
 </style>
