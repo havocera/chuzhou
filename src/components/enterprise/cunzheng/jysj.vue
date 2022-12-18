@@ -1,0 +1,380 @@
+<template>
+  <div>
+     <!-- 面包屑导航 -->
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>交易数据管理</el-breadcrumb-item>
+      <el-breadcrumb-item>交易数据管理</el-breadcrumb-item>
+    </el-breadcrumb>
+    <el-card class="box-card">
+    <!-- 搜索与添加区域 -->
+      <el-row :gutter="10">
+        <el-col :span="6">
+          <el-input
+            clearable
+            v-model="queryInfo.query"
+            @clear="getDataList"
+            placeholder="请输入交易信息"
+            class="input-with-select"
+          >
+            <el-button
+              @click="getDataList"
+              slot="append"
+              icon="el-icon-search"
+            ></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="2">
+          <el-button type="primary" @click="addDialogVisible = true"
+            >新增交易数据</el-button
+          >
+        </el-col>
+      </el-row>
+      <!-- 数据列表 -->
+        <el-table
+      :data="tableData"
+      style="width: 100%">
+      <el-table-column
+        type="index"
+        label="编号"
+      >
+      </el-table-column>
+      <el-table-column
+        prop="qymc"
+        label="企业名称"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="客户名称">
+      </el-table-column>
+      <el-table-column
+        prop="money"
+        label="交易金额">
+      </el-table-column>
+      <el-table-column
+        prop="product"
+        label="交易产品">
+      </el-table-column>
+      <el-table-column
+        prop="number"
+        label="交易数量">
+      </el-table-column>
+  
+      <el-table-column
+        prop="number"
+        label="运输数量">
+      </el-table-column>
+          <el-table-column prop="picture_path" label="交易图片" width="140">
+          <template slot-scope="scope">
+            <img :src="scope.row.picture_path" alt="暂无图片" width="100px" height="100px" />
+          </template>
+        </el-table-column>
+      <el-table-column
+        prop="time"
+        label="交易时间">
+      </el-table-column>
+       
+    </el-table>
+       <!-- 分页区域 -->
+      <el-pagination
+        background
+        layout="prev, pager, next,total"
+        :total="total"
+        :page-size="queryInfo.pageSize"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
+       <!-- 新增物流信息dialog -->
+      <el-dialog
+        title="新增交易数据"
+        :visible.sync="addDialogVisible"
+        width="30%"
+      >
+        <!-- 表单区 -->
+        <el-form size="medium"  ref="addFormRef" :inline="true" :model="addFormInfo" label-width="120px">
+          <el-form-item label="客户名称"  prop="name">
+            <el-input v-model="addFormInfo.name"></el-input>
+          </el-form-item>
+          <el-form-item label="交易金额"  prop="money">
+            <el-input v-model="addFormInfo.money"></el-input>
+          </el-form-item>
+          <el-form-item label="交易产品"  prop="product">
+            <el-input v-model="addFormInfo.product"></el-input>
+          </el-form-item>
+          <el-form-item label="交易数量"  prop="number">
+            <el-input v-model="addFormInfo.number"></el-input>
+          </el-form-item>
+           <el-form-item  label="交易图片名称" prop="picture">
+    <el-input disabled v-model="addFormInfo.picture"></el-input>
+  </el-form-item>
+  <el-form-item label="交易图片上传">
+    <!-- 图片上传组件 -->
+  <el-upload
+  ref="upload"
+  name="image"
+  class="upload-demo"
+  :action="uploadURL"
+  :on-success="successEvent"
+  list-type="picture">
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png格式的图片，且图片大小不能超过1MB</div>
+</el-upload>
+
+  </el-form-item>
+          <el-form-item label="交易日期"  prop="time">
+            <el-date-picker
+              value-format="yyyy-MM-dd"
+              format="yyyy-MM-dd"
+              v-model="addFormInfo.time"
+              type="date"
+              placeholder="选择日期"
+              
+            >
+            </el-date-picker>
+          </el-form-item>
+         
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="addDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="addFormSubmit">确 定</el-button>
+        </span>
+      </el-dialog>
+       <!-- 编辑物流信息dialog -->
+      <el-dialog
+        title="编辑物流信息"
+        :visible.sync="editDialogVisible"
+        width="40%"
+      >
+       <!-- 表单区 -->
+        <el-form size="medium"  ref="editFormRef" :inline="true" :model="editFormInfo" label-width="120px">
+          <el-form-item label="客户名称"  prop="name">
+            <el-input v-model="editFormInfo.name"></el-input>
+          </el-form-item>
+          <el-form-item label="交易金额"  prop="money">
+            <el-input v-model="editFormInfo.money"></el-input>
+          </el-form-item>
+          <el-form-item label="交易产品"  prop="product">
+            <el-input v-model="editFormInfo.product"></el-input>
+          </el-form-item>
+          <el-form-item label="交易数量"  prop="number">
+            <el-input v-model="editFormInfo.number"></el-input>
+          </el-form-item>
+           <el-form-item  label="交易图片名称" prop="picture">
+    <el-input disabled v-model="editFormInfo.picture"></el-input>
+  </el-form-item>
+  <el-form-item label="交易图片上传">
+    <!-- 图片上传组件 -->
+  <el-upload
+  ref="upload"
+  name="image"
+  class="upload-demo"
+  :action="uploadURL"
+  :on-success="successEvent"
+  list-type="picture">
+  <el-button size="small" type="primary">点击上传</el-button>
+  <div slot="tip" class="el-upload__tip">只能上传jpg/png格式的图片，且图片大小不能超过1MB</div>
+</el-upload>
+
+  </el-form-item>
+          <el-form-item label="交易日期"  prop="time">
+            <el-date-picker
+              value-format="yyyy-MM-dd"
+              format="yyyy-MM-dd"
+              v-model="editFormInfo.time"
+              type="date"
+              placeholder="选择日期"
+              
+            >
+            </el-date-picker>
+          </el-form-item>
+         
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button @click="editDialogVisible = false">取 消</el-button>
+          <el-button type="primary" @click="editFormSubmit">确 定</el-button>
+        </span>
+      </el-dialog>
+    </el-card>
+  </div>
+</template>
+
+<script>
+export default {
+    data(){
+      return{
+        tokenStr:'',
+        queryInfo:{
+          token:'',
+          query:'',
+          page:1,
+          pageSize:5
+        },
+        total:0,
+        tableData:[],
+        addDialogVisible:false,
+        editDialogVisible:false,
+        printCargoDialogVisible:false,
+        addFormInfo:{
+         name:'',
+         money:'',
+         product:'',
+         number:'',
+         time:'',
+         picture:''
+        },
+         uploadURL:'',
+         carGoUploadURL:'',
+        editFormInfo:{
+          name:'',
+         money:'',
+         product:'',
+         number:'',
+         time:'',
+         picture:''
+        },
+        cpInfoList:[],
+        cpmcList:[]
+      }
+    },
+    created(){
+        this.tokenStr = window.sessionStorage.getItem('token');
+        this.getDataList();
+        this.getPrintData();
+        this.setUploadURL();
+    },
+    methods:{
+      async getDataList(){
+        this.queryInfo.token =this.tokenStr
+      const{data:res} = await this.$http.post('TransactionList',this.queryInfo)
+      console.log(res.data.result)
+      this.tableData = res.data.result
+      this.total = res.data.total
+      },
+      // 点击翻页重新发起数据请求
+    handleCurrentChange(newPage){
+        this.queryInfo.page = newPage;
+        this.getDataList();
+    },
+   async addFormSubmit(){
+        this.addFormInfo.token = this.tokenStr;
+        await this.$http.post('AddTransactionInfo',this.addFormInfo)
+        this.getDataList();
+        this.addDialogVisible =false;
+        this.$refs.addFormRef.resetFields();
+    },
+    // 上传成功将图片名称保存，用于发送给后端
+       successEvent(response, file, fileList){
+        this.addFormInfo.picture = response.data.saveName;
+        this.editFormInfo.picture = response.data.saveName;
+        // console.log(response)
+    },
+         carGoSuccessEvent(response, file, fileList){
+        this.addFormInfo.cargo_pic = file.name;
+        this.editFormInfo.cargo_pic = file.name;
+        console.log(response,file.name)
+    },
+       // 动态设置图片上传路径
+    setUploadURL(){
+        this.tokenStr = window.sessionStorage.getItem('token');
+        this.uploadURL = 'http://ahteaapi.wtycms.cn/Transactionupload?token=' + this.tokenStr;
+        // console.log(this.uploadURL)
+    },
+   async editInfo(id){
+        // console.log(id)
+     const{data:res} = await this.$http.post('EditTransactionInfo',{token:this.tokenStr,id:id});
+     console.log(res.data)
+      this.editFormInfo.id = res.data.id;
+     this.editFormInfo.name = res.data.name;
+     this.editFormInfo.money = res.data.money;
+     this.editFormInfo.product = res.data.product;
+     this.editFormInfo.number = res.data.number;
+      this.editFormInfo.time = res.data.time;
+       this.editFormInfo.picture = res.data.picture;
+      this.editDialogVisible = true;
+    },
+   async editFormSubmit(){
+     await this.$http.post('DoEditTransactionInfo',this.editFormInfo)
+      this.editDialogVisible =false;
+      this.$message.success('编辑成功')
+      this.getDataList();
+    },
+    delInfo(id){
+            this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$http.post('DelTransactionInfo',{
+            token:this.tokenStr,id:id
+          })
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.getDataList();
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+        this.getDataList();
+    },
+ // 点击新增，弹出框中获取产品名称和批次号
+async getPrintData(){
+           const {data:res} = await this.$http.post(
+              "ProductionInfo",
+              this.queryInfo
+              );
+              console.log(res)
+              this.cpInfoList = res.data.result
+              // 对产品名称进行去重操作
+              for(let i=0;i<this.cpInfoList.length;i++){
+                  if(this.cpmcList.indexOf(this.cpInfoList[i].cpmc) == -1){
+                    this.cpmcList.push(this.cpInfoList[i].cpmc)
+                  }
+              }
+              console.log(this.cpInfoList)
+        },
+        getAddPch(){
+          // 新增遍历批次号，更新对应产品的批次号数据
+              this.pchList = [];
+              for(let i=0;i<this.cpInfoList.length;i++){
+                  // 获取不到批次号的话。this.editJggcInfo.cpmc要更改
+                  if(this.addFormInfo.cpmc == this.cpInfoList[i].cpmc){
+                    this.pchList.push(this.cpInfoList[i].pch)
+                  }
+              }
+        },
+        getPch(){
+          //编辑框 遍历批次号，更新对应产品的批次号数据
+              this.pchList = [];
+              for(let i=0;i<this.cpInfoList.length;i++){
+                  // 获取不到批次号的话。this.editFormInfo.cpmc要更改
+                  if(this.editFormInfo.cpmc == this.cpInfoList[i].cpmc){
+                    this.pchList.push(this.cpInfoList[i].pch)
+                  }
+              }
+        },
+        // 点击打印货物单按钮，生成货物信息单
+        printCargoBill(id){
+            console.log(id)
+            this.printCargoDialogVisible = true;
+        }
+    }
+}
+</script>
+
+<style scoped lang="less">
+.el-breadcrumb {
+  height: 30px;
+}
+.el-pagination {
+  margin-top: 10px;
+}
+.el-form .label{
+  font-size:15px!important;
+}
+</style>
+
