@@ -7,7 +7,7 @@
     <div class="logo">
         <!-- <img src="@/assets/logo.png" width="60px" height="60px" /> -->
         <el-button  @click="isCollapse=!isCollapse" icon="el-icon-s-fold" ></el-button>
-        <span style="font-size:17px;padding-left: 20px;">食品安全追溯系统--流通过程管理系统</span>
+        <span style="font-size:17px;padding-left: 20px;">食品安全追溯系统--交易信息系统</span>
       </div>
     </el-col>
   <el-col :span="12">
@@ -24,7 +24,7 @@
     </el-header>
     <el-container>
       <!-- 左侧菜单区域 -->
-      <el-menu background-color="#fff" :collapse="isCollapse" active-text-color="#00b173" text-color="#000" :router="true" :unique-opened="true" :default-active="activeIndex"  mode="vertical" @select="handleSelect">
+      <el-menu background-color="#1890ff" :collapse="isCollapse" active-text-color="#00b173" text-color="#fff" :router="true" :unique-opened="true" :default-active="activeIndex"  mode="vertical" @select="handleSelect">
   <el-menu-item :index="item.path" v-for="item in enterpriseMenuList" :key="item.id" > <i  :class="item.icon"></i><span slot="title">{{item.authName}}</span></el-menu-item>
 </el-menu>
       <el-main>
@@ -93,7 +93,7 @@ export default {
     // padding: 0 0 0 8px!important;
     min-width: 0;
     i{
-      color: #000;
+      color: #fff;
     }
 }
 .el-menu:not(.el-menu--horizontal,.el-menu--popup) .el-menu-item.is-active:before {

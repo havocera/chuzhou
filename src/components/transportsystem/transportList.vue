@@ -173,7 +173,7 @@
       >
        <!-- 表单区 -->
         <el-form size="medium"  ref="editFormRef" :inline="true" :model="editFormInfo" label-width="120px">
-          <el-form-item label="收购商名称"  prop="name">
+          <el-form-item label="批发商名称"  prop="name">
             <el-input v-model="editFormInfo.name"></el-input>
           </el-form-item>
           <el-form-item label="生产企业名称"  prop="money">

@@ -9,11 +9,12 @@
       <el-button @click="loginOut" class="btnLoginOut">退出系统</el-button>
     </el-header>
     <el-container>
-      <!-- 左侧菜单区域 -->
+      <!-- 左侧菜单区域 background-color="#545c64"-->
       <el-aside width="200px">
         <el-col>
           <el-menu
-            background-color="#545c64"
+            
+            background-color="#1890ff"
             text-color="#fff"
             active-text-color="#ffd04b"
             :router="true"

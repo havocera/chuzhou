@@ -1,6 +1,6 @@
 <template>
         <div class="qyForm">
-    <div class="qytitle">收购商信息管理</div>
+    <div class="qytitle">批发商信息管理</div>
     <el-form  label-width="100px" :model="businessInfo">
       <el-form-item label="企业名称">
         <el-input v-model="businessInfo.qymc"></el-input>

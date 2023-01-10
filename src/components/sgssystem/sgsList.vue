@@ -3,8 +3,8 @@
      <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>收购商管理</el-breadcrumb-item>
-      <el-breadcrumb-item>收购商交易管理</el-breadcrumb-item>
+      <el-breadcrumb-item>批发商管理</el-breadcrumb-item>
+      <el-breadcrumb-item>批发商交易管理</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card">
     <!-- 搜索与添加区域 -->
@@ -26,7 +26,7 @@
         </el-col>
         <el-col :span="2">
           <el-button type="primary" @click="addDialogVisible = true"
-            >新增收购交易数据</el-button
+            >新增批发交易数据</el-button
           >
         </el-col>
       </el-row>
@@ -36,7 +36,7 @@
       style="width: 100%">
       <el-table-column
         prop="retail_order"
-        label="收购订单号"
+        label="批发订单号"
       >
       </el-table-column>
       <el-table-column
@@ -45,7 +45,7 @@
       </el-table-column>
       <el-table-column
         prop="cpmc"
-        label="收购产品">
+        label="批发产品">
       </el-table-column>
       <el-table-column
         prop="pch"
@@ -145,7 +145,7 @@
       >
        <!-- 表单区 -->
         <el-form size="medium"  ref="editFormRef" :inline="true" :model="editFormInfo" label-width="120px">
-          <el-form-item label="收购商名称"  prop="name">
+          <el-form-item label="批发商名称"  prop="name">
             <el-input v-model="editFormInfo.name"></el-input>
           </el-form-item>
           <el-form-item label="生产企业名称"  prop="money">

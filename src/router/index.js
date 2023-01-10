@@ -390,25 +390,25 @@ var router = new VueRouter({
             ]
           },
            // 流通过程管理TransportInfo
-          //  {
-          //   path: '/TransportInfo',
-          //   name: 'TransportInfo',
-          //   component:()=>import('../components/TransportInfo'),
-          //   children: [
-          //     {
-          //       path: '/jysj',
-          //       component:()=>import("../components/enterprise/jiaoyi/jiaoyi")
-          //     },
-          //     {
-          //       path: '/khxx',
-          //       component: ()=>import('../components/enterprise/ltgc/khxx')
-          //     },
-          //     {
-          //       path: '/wlxx',
-          //       component: ()=>import('../components/enterprise/ltgc/wlxx')
-          //     },
-          //   ]
-          // },
+           {
+            path: '/TransportInfo',
+            name: 'TransportInfo',
+            component:()=>import('../components/TransportInfo'),
+            children: [
+              {
+                path: '/jysj',
+                component:()=>import("../components/enterprise/jiaoyi/jiaoyi")
+              },
+              {
+                path: '/khxx',
+                component: ()=>import('../components/enterprise/ltgc/khxx')
+              },
+              {
+                path: '/wlxx',
+                component: ()=>import('../components/enterprise/ltgc/wlxx')
+              },
+            ]
+          },
              // 种植过程管理PlantInfo
              {
               path: '/PlantInfo',

@@ -25,7 +25,7 @@
     <el-container>
       <!-- 左侧菜单区域 -->
      
-      <el-menu background-color="#1890ff" :collapse="isCollapse" active-text-color="#00b173" text-color="#fff" :router="true" :unique-opened="true" :default-active="activeIndex"  mode="vertical" @select="handleSelect">
+      <el-menu  background-color="#1890ff" :collapse="isCollapse" active-text-color="#00b173" text-color="#fff" :router="true" :unique-opened="true" :default-active="activeIndex"  mode="vertical" @select="handleSelect">
   <el-menu-item :index="item.path" v-for="item in enterpriseMenuList" :key="item.id" > <i  :class="item.icon"></i><span slot="title">{{item.authName}}</span></el-menu-item>
 </el-menu>
       <el-main>

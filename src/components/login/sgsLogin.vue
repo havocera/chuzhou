@@ -1,7 +1,7 @@
 <template>
   <div class="login_content">
     <div class="loginTittle" style="">
-      物联网+区块链食品安全收购商系统
+      物联网+区块链食品安全批发商系统
     </div>
  <el-button icon="el-icon-house" @click="toIndex" circle style="position:absolute;top:30px;right:30px;"> </el-button>
     <div class="box">

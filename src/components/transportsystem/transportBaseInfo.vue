@@ -23,7 +23,7 @@
     </el-header>
     <el-container>
       <!-- 左侧菜单区域 -->
-      <el-menu background-color="#fff" :collapse="isCollapse" active-text-color="#00b173" text-color="#000" :router="true" :unique-opened="true" :default-active="activeIndex"  mode="vertical" @select="handleSelect">
+      <el-menu  :collapse="isCollapse" :router="true" :unique-opened="true" :default-active="activeIndex"  mode="vertical" @select="handleSelect">
   <el-menu-item :index="item.path" v-for="item in enterpriseMenuList" :key="item.id" > <i  :class="item.icon"></i><span slot="title">{{item.authName}}</span></el-menu-item>
 </el-menu>
       <el-main>
@@ -39,7 +39,7 @@ export default {
     return {
       
       isCollapse:false,
-      activeIndex:'transportInfo',
+      activeIndex:'transportqyInfo',
       enterpriseMenuList: [
             {
               id: 4,
@@ -74,9 +74,14 @@ export default {
     background-color:#e6fbf4!important;
     color: #fff;
     border-radius: 0 8px 8px 0;
+    color: var(--ac-text);
     i{
-      color: #00b173;
+      color: var(--ac-text);
     }
+}
+.el-menu-item:focus, .el-menu-item:hover {
+    outline: 0;
+    background-color: var(--menu-bg);
 }
 .el-menu:not(.el-menu--horizontal,.el-menu--popup) .el-menu-item {
     border-left: 4px solid transparent;
@@ -84,8 +89,9 @@ export default {
     margin: 0 4px;
     // padding: 0 0 0 8px!important;
     min-width: 0;
+    color: var(--text-color);
     i{
-      color: #000;
+      color: var(--icon-color);
     }
 }
 .el-menu:not(.el-menu--horizontal,.el-menu--popup) .el-menu-item.is-active:before {
@@ -104,6 +110,7 @@ export default {
 }
 .el-menu {
   border-right: none;
+  background-color: var(--menu-bg);
 }
 .el-header {
   background-color: #1890ff;

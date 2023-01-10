@@ -1,6 +1,12 @@
-.title{
+/* .title{
   font-size: 20px;
   color: rgb(84, 92, 100);
   text-align: center;
   text-shadow: #fff ;
+} */
+:root{
+  --menu-bg: #1890ff;
+--text-color:#fff;
+--icon-color:#fff;
+--ac-text:#00b173;
 }

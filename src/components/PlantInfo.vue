@@ -27,7 +27,7 @@
     </el-header>
     <el-container>
       <!-- 左侧菜单区域1890ff -->
-      <el-menu background-color="#fff" :collapse="isCollapse" active-text-color="#00b173" text-color="#000" :router="true" :unique-opened="true" :default-active="activeIndex"  mode="vertical" @select="handleSelect">
+      <el-menu background-color="#1890ff" :collapse="isCollapse" active-text-color="#00b173" text-color="#fff" :router="true" :unique-opened="true" :default-active="activeIndex"  mode="vertical" @select="handleSelect">
   <!-- <el-menu-item :index="item.path" v-for="item in enterpriseMenuList" :key="item.id" > <i  :class="item.icon"></i>{{item.authName}}</el-menu-item> -->
   
    <el-submenu index="1">
@@ -125,12 +125,12 @@ export default {
     // padding: 0 0 0 8px!important;
     min-width: 0;
     i{
-      color: #000;
+      color: #fff;
     }
     
 }
 .el-submenu__title i{
-      color: #000;
+      color: #fff;
      
     }
 .el-menu:not(.el-menu--horizontal,.el-menu--popup) .el-menu-item.is-active:before {

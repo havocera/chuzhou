@@ -1,0 +1,8 @@
+$base-menu-background: #1890ff;
+$base-text-color:#fff;
+$icon-color:#fff;
+:export {
+    text-color:$base-text-color;
+    icon-color:$icon-color;
+  menuBackground: $base-menu-background
+}

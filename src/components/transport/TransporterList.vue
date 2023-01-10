@@ -3,8 +3,8 @@
      <!-- 面包屑导航 -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>收购商管理</el-breadcrumb-item>
-      <el-breadcrumb-item>收购商交易管理</el-breadcrumb-item>
+      <el-breadcrumb-item>批发商管理</el-breadcrumb-item>
+      <el-breadcrumb-item>批发商交易管理</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card">
     <!-- 搜索与添加区域 -->
@@ -145,7 +145,7 @@
       >
        <!-- 表单区 -->
         <el-form size="medium"  ref="editFormRef" :inline="true" :model="editFormInfo" label-width="120px">
-          <el-form-item label="收购商名称"  prop="name">
+          <el-form-item label="批发商名称"  prop="name">
             <el-input v-model="editFormInfo.name"></el-input>
           </el-form-item>
           <el-form-item label="生产企业名称"  prop="money">

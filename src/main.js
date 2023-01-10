@@ -14,6 +14,7 @@ Vue.component(CollapseTransition.name, CollapseTransition)
 import Vant from 'vant';
 import 'vant/lib/index.css';
 
+
 Vue.use(Vant);
 import axios from "axios"
 axios.defaults.baseURL = 'https://czapi.wtycms.cn/'
@@ -40,7 +41,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 Vue.config.productionTip = false
-
+import './assets/css/common.css'
 import router from './router/index'
 
 // 打印插件

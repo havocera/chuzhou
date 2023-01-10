@@ -140,14 +140,14 @@
 
           </div>
 
-          <div class="symtitle">收购商环节</div>
+          <div class="symtitle">批发商环节</div>
                  <div class="des">
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
 
       <van-swipe-item v-for="(item,index) in showInfo.purchase
 " :key="index"> 
         <van-cell-group >
-  <van-cell title="收购商" :value="item.qymc" />
+  <van-cell title="批发商" :value="item.qymc" />
   <van-cell title="收购时间" :value="item.creation_time" />
   <van-cell title="所属批次" :value="item.pch" />
   <van-cell title="凭证" :value="item.retail_order" />
